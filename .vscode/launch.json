@@ -1,0 +1,78 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach NestJS Backend (Docker)",
+      "port": 9229, // Debug port exposed by the Docker container
+      "address": "localhost", // Or the service IP if not localhost
+      "restart": true,
+      "protocol": "inspector",
+      "localRoot": "${workspaceFolder}/backend", // Local path to the backend folder
+      "remoteRoot": "/app", // Application path inside the Docker container
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/backend/dist/**/*.js" // Compiled TypeScript output files
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch NestJS Backend (Local)",
+      "args": [
+        "${workspaceFolder}/backend/src/main.ts"
+      ],
+      "runtimeArgs": [
+        "--nolazy",
+        "-r",
+        "ts-node/register",
+        "-r",
+        "tsconfig-paths/register"
+      ],
+      "sourceMaps": true,
+      "cwd": "${workspaceFolder}/backend",
+      "protocol": "inspector",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "envFile": "${workspaceFolder}/backend/.env", // Make sure your .env file is here
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/node_modules/**"
+      ]
+    },
+    {
+      "name": "Launch Next.js Frontend",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/frontend", // Path to your frontend project
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "envFile": "${workspaceFolder}/frontend/.env.local", // Path to your frontend .env.local
+      "outputCapture": "std",
+      "port": 9229 // Default Node.js debug port
+    },
+    {
+      "name": "Attach Next.js Frontend (Browser)",
+      "type": "chrome",
+      "request": "attach",
+      "port": 9222, // Or whatever port your browser debug adapter is listening on
+      "url": "http://localhost:3001", // The URL where your Next.js app is running
+      "webRoot": "${workspaceFolder}/frontend",
+      "sourceMaps": true,
+      "skipFiles": [
+        "node_modules/**/*.js"
+      ]
+    }
+  ]
+}

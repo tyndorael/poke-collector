@@ -1,0 +1,13 @@
+# Mac file system files
+# See https://help.github.com/articles/ignoring-files/#macos-system-files
+
+.DS_Store
+
+# DB local files
+.db
+.redis
+
+# minio
+.minio
+
+*-ai
