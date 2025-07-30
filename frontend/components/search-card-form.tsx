@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 interface SearchCardFormProps {
   type: 'search';
-  onSubmit: (data: any) => void;
+  onSubmit: (data: { name: string }) => void;
   loading: boolean;
 }
 
@@ -33,27 +33,27 @@ export function SearchCardForm({
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card className="overflow-hidden p-0">
-        <CardContent className="grid p-0 md:grid-cols-2">
+        <CardContent className="grid p-0">
           <form onSubmit={handleSubmit} className="p-6 md:p-8">
             <div className="flex flex-col gap-6">
-              <div className="flex flex-col items-center text-center">
-                <h1 className="text-2xl font-bold">Search Cards</h1>
-                <p className="text-muted-foreground text-balance">Find cards</p>
+              <div className="flex flex-col">
+                <h2 className="text-2xl font-bold">Find Cards</h2>
               </div>
-              <div className="grid gap-3">
-                <Label htmlFor="email">Name</Label>
-                <Input
-                  id="name"
-                  type="name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="pikachu"
-                  required
-                />
+              <div className="flex gap-3 items-end">
+                <div className="flex flex-col flex-1">
+                  <Input
+                    id="name"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Enter card name"
+                    required
+                  />
+                </div>
+                <Button type="submit" className="h-10">
+                  Search
+                </Button>
               </div>
-              <Button type="submit" className="w-full">
-                Search
-              </Button>
             </div>
           </form>
         </CardContent>
